@@ -6,13 +6,37 @@
       "type": "shell",
       "command": "stack build",
       "options": {
-        "cwd": "${workspaceFolder}/ch2/caesar"
+        "cwd": "${workspaceFolder}/ch3-4/lnums"
+      }
+    },
+    {
+      "label": "stack run",
+      "type": "shell",
+      "command": "stack run -- ${input:args}",
+      "options": {
+        "cwd": "${workspaceFolder}/ch3-4/lnums"
+      }
+    },
+    {
+      "label": "stack repl",
+      "type": "shell",
+      "command": "stack repl",
+      "options": {
+        "cwd": "${workspaceFolder}/ch3-4/lnums"
       }
     },
     {
       "label": "Cowsay",
       "type": "shell",
       "command": "echo ${workspaceFolder}"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "args",
+      "description": "Programm Arguments",
+      "default": "bla.txt",
+      "type": "promptString"
     }
   ]
 }
