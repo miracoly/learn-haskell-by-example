@@ -1,6 +1,5 @@
 module Main (main) where
 
-import Data.Char (isPrint, isSeparator)
 import Data.Maybe
 import Lib (PadMode (..), numberAllLines, prettyNumberedLines)
 import System.Environment (getArgs, getProgName)

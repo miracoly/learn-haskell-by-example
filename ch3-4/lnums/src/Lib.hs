@@ -5,7 +5,6 @@ import Data.Char (isPrint, isSeparator)
 type NumberedLine = (Maybe Int, String)
 type NumberedLines = [NumberedLine]
 
-
 numberAllLines :: [String] -> NumberedLines
 numberAllLines = numberLines (const True) (const True)
 
