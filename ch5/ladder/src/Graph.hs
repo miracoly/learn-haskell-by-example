@@ -19,7 +19,7 @@ addNode graph node
   | graph `hasNode` node = graph
   | otherwise = (node, []) : graph
 
-alter :: (Eq k, Eq v) => (Maybe v -> Maybe v) -> k -> Graph k v -> Graph k v
+alter :: (Eq k) => (Maybe v -> Maybe v) -> k -> Graph k v -> Graph k v
 alter f key [] =
   case f Nothing of
     Nothing -> []
