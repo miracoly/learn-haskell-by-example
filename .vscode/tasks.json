@@ -6,15 +6,23 @@
       "type": "shell",
       "command": "stack build",
       "options": {
-        "cwd": "${workspaceFolder}/ch3-4/lnums"
+        "cwd": "${workspaceFolder}/ch5/ladder"
       }
     },
     {
       "label": "stack run",
       "type": "shell",
+      "command": "stack run",
+      "options": {
+        "cwd": "${workspaceFolder}/ch5/ladder"
+      }
+    },
+    {
+      "label": "stack run with inputs",
+      "type": "shell",
       "command": "stack run -- ${input:args}",
       "options": {
-        "cwd": "${workspaceFolder}/ch3-4/lnums"
+        "cwd": "${workspaceFolder}/ch5/ladder"
       }
     },
     {
@@ -22,13 +30,8 @@
       "type": "shell",
       "command": "stack repl",
       "options": {
-        "cwd": "${workspaceFolder}/ch3-4/lnums"
+        "cwd": "${workspaceFolder}/ch5/ladder"
       }
-    },
-    {
-      "label": "Cowsay",
-      "type": "shell",
-      "command": "echo ${workspaceFolder}"
     }
   ],
   "inputs": [
