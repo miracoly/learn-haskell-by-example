@@ -4,6 +4,7 @@ module Data.AssocMap
     delete,
     insert,
     member,
+    alter,
     lookup,
     findWithDefault
   )
