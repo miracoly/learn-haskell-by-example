@@ -16,4 +16,22 @@ alter ::
   String ->
   PermutationMap ->
   PermutationMap
-alter = undefined
+alter f key = AM.alter f $ L.sort key
+
+delete :: String -> PermutationMap -> PermutationMap
+delete key = AM.delete (L.sort key) 
+
+insert :: String -> [String] -> PermutationMap -> PermutationMap
+insert key = AM.insert (L.sort key)
+
+lookup :: String -> PermutationMap -> Maybe [String]
+lookup key = AM.lookup (L.sort key)
+
+createPermutationMap :: [String] -> PermutationMap
+createPermutationMap = foldr insertPermutation empty
+  where
+    insertPermutation :: String -> PermutationMap -> PermutationMap
+    insertPermutation word = alter (insertList word) word
+    insertList :: a -> Maybe [a] -> Maybe [a]
+    insertList w Nothing = Just [w]
+    insertList w (Just ws) = Just (w : ws)
