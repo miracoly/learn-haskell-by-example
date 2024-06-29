@@ -1,31 +1,31 @@
 module PermutationMap (module PermutationMap) where
 
-import Data.AssocMap qualified as AM
+import Data.HashMap.Lazy qualified as M
 import Data.List qualified as L
 
-type PermutationMap = AM.AssocMap String [String]
+type PermutationMap = M.HashMap String [String]
 
 empty :: PermutationMap
-empty = AM.empty
+empty = M.empty
 
 member :: String -> PermutationMap -> Bool
-member key = AM.member (L.sort key)
+member key = M.member (L.sort key)
 
 alter ::
   (Maybe [String] -> Maybe [String]) ->
   String ->
   PermutationMap ->
   PermutationMap
-alter f key = AM.alter f $ L.sort key
+alter f key = M.alter f $ L.sort key
 
 delete :: String -> PermutationMap -> PermutationMap
-delete key = AM.delete (L.sort key) 
+delete key = M.delete (L.sort key) 
 
 insert :: String -> [String] -> PermutationMap -> PermutationMap
-insert key = AM.insert (L.sort key)
+insert key = M.insert (L.sort key)
 
 lookup :: String -> PermutationMap -> Maybe [String]
-lookup key = AM.lookup (L.sort key)
+lookup key = M.lookup (L.sort key)
 
 createPermutationMap :: [String] -> PermutationMap
 createPermutationMap = foldr insertPermutation empty

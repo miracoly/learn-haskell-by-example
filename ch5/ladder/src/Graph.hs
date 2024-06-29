@@ -2,35 +2,36 @@
 
 module Graph (module Graph) where
 
-import Data.AssocMap qualified as AM
+import Data.HashMap.Lazy qualified as M
+import Data.Hashable (Hashable)
 import Data.List qualified as L
 
-type DiGraph a = AM.AssocMap a [a]
+type DiGraph a = M.HashMap a [a]
 
-addEdges :: (Eq a) => [(a, a)] -> DiGraph a -> DiGraph a
+addEdges :: (Hashable a, Eq a) => [(a, a)] -> DiGraph a -> DiGraph a
 addEdges edges graph = L.foldr addEdge graph edges
 
-addEdge :: (Eq a) => (a, a) -> DiGraph a -> DiGraph a
-addEdge (node, child) = AM.alter insertEdge node
+addEdge :: (Hashable a, Eq a) => (a, a) -> DiGraph a -> DiGraph a
+addEdge (node, child) = M.alter insertEdge node
   where
     insertEdge Nothing = Just [child]
     insertEdge (Just nodes) = Just (L.nub (child : nodes))
 
-buildDiGraph :: (Eq a) => [(a, [a])] -> DiGraph a
-buildDiGraph = L.foldr (uncurry AM.insert) AM.empty
+buildDiGraph :: (Hashable a, Eq a) => [(a, [a])] -> DiGraph a
+buildDiGraph = L.foldr (uncurry M.insert) M.empty
 
-children :: (Eq a) => a -> DiGraph a -> [a]
-children = AM.findWithDefault []
+children :: (Hashable a, Eq a) => a -> DiGraph a -> [a]
+children = M.findWithDefault []
 
 data SearchResult a = Unsuccessful | Successful (DiGraph a)
 
 type SearchState a = ([a], DiGraph a, DiGraph a)
 
-bfsSearch :: forall a. (Eq a) => DiGraph a -> a -> a -> Maybe [a]
+bfsSearch :: forall a. (Hashable a, Eq a) => DiGraph a -> a -> a -> Maybe [a]
 bfsSearch graph start end
   | start == end = Just [start]
   | otherwise =
-      case bfsSearch' ([start], graph, AM.empty) of
+      case bfsSearch' ([start], graph, M.empty) of
         Successful preds -> Just (findSolution preds)
         Unsuccessful -> Nothing
   where
@@ -56,7 +57,7 @@ bfsSearch graph start end
       let g' = deleteNodes frontier g
           ch =
             L.map
-              (\n -> (n, L.filter (`AM.member` g') (children n g)))
+              (\n -> (n, L.filter (`M.member` g') (children n g)))
               frontier
           frontier' = L.concatMap snd ch
           preds' = addMultiplePredecessors ch preds
@@ -65,4 +66,4 @@ bfsSearch graph start end
             else bfsSearch' (frontier', g', preds')
 
     deleteNodes :: [a] -> DiGraph a -> DiGraph a
-    deleteNodes xs g = foldr AM.delete g xs
+    deleteNodes xs g = foldr M.delete g xs

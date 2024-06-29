@@ -1,6 +1,6 @@
 module Ladder (module Ladder) where
 
-import Data.AssocMap qualified as AM
+import Data.HashMap.Lazy qualified as M
 import Data.List qualified as L
 import Graph qualified as G
 import PermutationMap qualified as PM
@@ -24,7 +24,7 @@ computeCandidates :: PM.PermutationMap -> String -> [String]
 computeCandidates _map word =
   let candidates = modified <> removed <> added <> [word]
       uniques = L.nub [L.sort w | w <- candidates]
-      perms = L.concatMap (\x -> AM.findWithDefault [] x _map) uniques
+      perms = L.concatMap (\x -> M.findWithDefault [] x _map) uniques
    in L.delete word perms
   where
     added = [x : word | x <- ['a' .. 'z']]
