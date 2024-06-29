@@ -30,3 +30,8 @@ computeCandidates _map word =
     added = [x : word | x <- ['a' .. 'z']]
     removed = [L.delete x word | x <- word]
     modified = [x : L.delete y word | x <- ['a' .. 'z'], y <- word, x /= y]
+
+ladderSolve :: Dictionary -> String -> String -> Maybe [String]
+ladderSolve dict start end =
+  let g = mkLadderGraph dict
+   in G.bfsSearch g start end
