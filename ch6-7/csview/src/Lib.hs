@@ -1,3 +1,5 @@
+{-# LANGUAGE RecordWildCards #-}
+
 module Lib
   ( module Lib,
   )
@@ -21,6 +23,28 @@ data DataField
   | TextValue T.Text
   | NullValue
   deriving (Eq, Show)
+
+appendCsv :: Csv -> Csv -> Csv
+appendCsv a b =
+  Csv
+    { csvHeader =
+        if M.isNothing (csvHeader a) && M.isNothing (csvHeader b)
+          then Nothing
+          else Just $ header' a ++ header' b,
+      csvColumns = appendColumns (csvColumns a) (csvColumns b)
+    }
+  where
+    header' = undefined
+    appendColumns = undefined
+
+numberOfRows :: Csv -> Int
+numberOfRows Csv {..} =
+  case csvColumns of
+    [] -> 0
+    h : _ -> length h
+
+numberOfColumns :: Csv -> Int
+numberOfColumns Csv {..} = length csvColumns
 
 unsafeMkCsv :: Maybe [T.Text] -> [Column] -> Csv
 unsafeMkCsv header columns =
