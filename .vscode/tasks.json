@@ -6,7 +6,7 @@
       "type": "shell",
       "command": "stack build",
       "options": {
-        "cwd": "${workspaceFolder}/ch5/ladder"
+        "cwd": "${workspaceFolder}/ch6-7/csview"
       }
     },
     {
@@ -14,7 +14,7 @@
       "type": "shell",
       "command": "stack run",
       "options": {
-        "cwd": "${workspaceFolder}/ch5/ladder"
+        "cwd": "${workspaceFolder}/ch6-7/csview"
       }
     },
     {
@@ -22,7 +22,7 @@
       "type": "shell",
       "command": "stack run -- ${input:args}",
       "options": {
-        "cwd": "${workspaceFolder}/ch5/ladder"
+        "cwd": "${workspaceFolder}/ch6-7/csview"
       }
     },
     {
@@ -30,7 +30,7 @@
       "type": "shell",
       "command": "stack repl",
       "options": {
-        "cwd": "${workspaceFolder}/ch5/ladder"
+        "cwd": "${workspaceFolder}/ch6-7/csview"
       }
     }
   ],

@@ -1,6 +1,7 @@
 module Main (main) where
-import System.Environment (getProgName, getArgs)
-import Ladder (readDictionary, ladderSolve)
+
+import Ladder (ladderSolve, readDictionary)
+import System.Environment (getArgs, getProgName)
 
 printHelpText :: String -> IO ()
 printHelpText msg = do
