@@ -2,32 +2,19 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "stack build",
+      "label": "cabal build",
       "type": "shell",
-      "command": "stack build"
+      "command": "cabal build"
     },
     {
-      "label": "stack run",
+      "label": "cabal run",
       "type": "shell",
-      "command": "stack run"
+      "command": "cabal run"
     },
     {
-      "label": "stack run with inputs",
+      "label": "cabal repl",
       "type": "shell",
-      "command": "stack run -- ${input:args}"
-    },
-    {
-      "label": "stack repl",
-      "type": "shell",
-      "command": "stack repl"
-    }
-  ],
-  "inputs": [
-    {
-      "id": "args",
-      "description": "Programm Arguments",
-      "default": "bla.txt",
-      "type": "promptString"
+      "command": "cabal repl"
     }
   ]
 }
