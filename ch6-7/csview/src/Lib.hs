@@ -25,6 +25,12 @@ data DataField
   | NullValue
   deriving (Eq, Show)
 
+instance Semigroup Csv where
+  (<>) = appendCsv
+
+instance Monoid Csv where
+  mempty = Csv {csvHeader = Nothing, csvColumns = []}
+
 appendCsv :: Csv -> Csv -> Csv
 appendCsv a b =
   Csv
