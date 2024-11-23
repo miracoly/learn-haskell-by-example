@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 
 module Lib
@@ -34,8 +35,13 @@ appendCsv a b =
       csvColumns = appendColumns (csvColumns a) (csvColumns b)
     }
   where
-    header' = undefined
-    appendColumns = undefined
+    header' csv =
+      M.fromMaybe (L.replicate (numberOfColumns csv) "") (csvHeader csv)
+    appendColumns colsA colsB =
+      map (++ fillA) colsA ++ map (++ fillB) colsB
+      where
+        fillA = replicate (numberOfRows b - numberOfRows a) NullValue
+        fillB = replicate (numberOfRows a - numberOfRows b) NullValue
 
 numberOfRows :: Csv -> Int
 numberOfRows Csv {..} =
