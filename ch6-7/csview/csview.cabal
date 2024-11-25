@@ -28,6 +28,7 @@ library
       Lib
   other-modules:
       Paths_csview
+      Data.Sliceable
   autogen-modules:
       Paths_csview
   hs-source-dirs:
