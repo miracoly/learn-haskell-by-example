@@ -6,6 +6,7 @@ where
 import qualified Data.Either as E
 import qualified Data.List as L
 import qualified Data.Maybe as M
+import Data.Sliceable (Sliceable (..))
 import qualified Data.Text as T
 
 data Csv = Csv
@@ -27,6 +28,12 @@ instance Semigroup Csv where
 
 instance Monoid Csv where
   mempty = Csv {csvHeader = Nothing, csvColumns = []}
+
+instance Sliceable Csv where
+  slicePartition idx1 idx2 Csv {..} =
+    let (headerHd, headerSpl, headerTl) = slicePartition idx1 idx2 csvHeader
+        (columnHd, columnSpl, columnTl) = slicePartition idx1 idx2 csvColumns
+     in (Csv headerHd columnHd, Csv headerSpl columnSpl, Csv headerTl columnTl)
 
 appendCsv :: Csv -> Csv -> Csv
 appendCsv a b =
