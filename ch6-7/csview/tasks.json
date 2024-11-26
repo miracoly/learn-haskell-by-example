@@ -1,0 +1,6 @@
+[
+  {
+    "label": "cabal build",
+    "command": "cabal build"
+  }
+]
