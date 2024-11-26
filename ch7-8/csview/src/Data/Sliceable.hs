@@ -19,3 +19,13 @@ instance (Sliceable a) => Sliceable (Maybe a) where
       Just xs ->
         let (hd, s, tl) = slicePartition idx1 idx2 xs
          in (Just hd, Just s, Just tl)
+
+sliceMap :: (Sliceable a, Semigroup a) => Int -> Int -> (a -> a) -> a -> a
+sliceMap idx1 idx2 f xs =
+  let (hd, sl, tl) = slicePartition idx1 idx2 xs
+   in f hd <> f sl <> f tl
+
+sliceDelete :: (Sliceable a, Semigroup a) => Int -> Int -> a -> a
+sliceDelete idx1 idx2 xs =
+  let (hd, _, tl) = slicePartition idx1 idx2 xs
+   in hd <> tl
