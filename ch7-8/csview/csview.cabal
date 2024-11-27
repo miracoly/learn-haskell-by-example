@@ -25,10 +25,11 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Csv
   other-modules:
       Paths_csview
       Data.Sliceable
+      Csv.Types
   autogen-modules:
       Paths_csview
   hs-source-dirs:
