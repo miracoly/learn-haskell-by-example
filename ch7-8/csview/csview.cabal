@@ -30,6 +30,7 @@ library
       Paths_csview
       Data.Sliceable
       Csv.Types
+      Csv.Parsing
   autogen-modules:
       Paths_csview
   hs-source-dirs:
