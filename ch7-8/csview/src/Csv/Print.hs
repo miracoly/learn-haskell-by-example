@@ -1,12 +1,12 @@
 module Csv.Print (module Csv.Print) where
 
-import Csv (dataFieldToText)
 import Csv.Types
 import qualified Data.Either as E
 import qualified Data.List as L
 import qualified Data.Maybe as M
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
+import Csv.Parsing
 
 data PrettyCsv = PrettyCsv
   { pcHeader :: Maybe [T.Text],
@@ -31,6 +31,19 @@ withSummaries csv@(PrettyCsv {..}) summaries =
   if L.length pcColumns == L.length summaries
     then Right csv {pcSummaries = Just summaries}
     else Left "Summary must have same column length as Csv"
+
+pretty :: PrettyCsv -> String
+pretty = T.unpack . prettyText
+
+prettyText :: PrettyCsv -> T.Text
+prettyText PrettyCsv {pcColumns} =
+  let lengthC1 = colWidth $ head pcColumns
+      col1 = map (padField lengthC1) $ head pcColumns
+   in T.intercalate "\n" col1
+  where
+    colWidth = maximum . map T.length
+    padField :: Int -> T.Text -> T.Text
+    padField max' txt = T.replicate (max' - T.length txt) " " <> txt
 
 writeCsv :: FilePath -> Csv -> IO ()
 writeCsv path = TIO.writeFile path . T.intercalate "\n" . toFileContent
