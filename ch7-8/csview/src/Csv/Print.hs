@@ -32,6 +32,11 @@ withSummaries csv@(PrettyCsv {..}) summaries =
     then Right csv {pcSummaries = Just summaries}
     else Left "Summary must have same column length as Csv"
 
+pretty :: PrettyCsv -> String
+pretty = T.unpack . prettyText
+
+prettyText :: PrettyCsv -> T.Text
+
 writeCsv :: FilePath -> Csv -> IO ()
 writeCsv path = TIO.writeFile path . T.intercalate "\n" . toFileContent
 
