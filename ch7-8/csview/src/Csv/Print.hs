@@ -14,6 +14,14 @@ data PrettyCsv = PrettyCsv
   }
   deriving (Eq, Show)
 
+fromCsv :: Csv -> PrettyCsv
+fromCsv Csv {..} =
+  PrettyCsv
+    { pcHeader = csvHeader,
+      pcColumns = L.map (L.map dataFieldToText) csvColumns,
+      pcSummaries = Nothing
+    }
+
 writeCsv :: FilePath -> Csv -> IO ()
 writeCsv path = TIO.writeFile path . T.intercalate "\n" . toFileContent
 
