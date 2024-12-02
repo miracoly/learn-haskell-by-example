@@ -1,4 +1,5 @@
 module Main (main) where
+import Csv (printCsv)
 
 main :: IO ()
-main = print "bla"
+main = printCsv "csvs/cities.csv"
