@@ -34,6 +34,12 @@ defaultOptions =
       cpoHeaderOptions = WithoutHeader
     }
 
+parseWithHeader :: T.Text -> Either String Csv
+parseWithHeader = parseCsv (defaultOptions {cpoHeaderOptions = WithHeader})
+
+parseWithoutHeader :: T.Text -> Either String Csv
+parseWithoutHeader = parseCsv defaultOptions
+
 parseCsv :: CsvParseOptions -> T.Text -> Either String Csv
 parseCsv CsvParseOptions {..} raw =
   case lines' of
