@@ -36,11 +36,13 @@ pretty :: PrettyCsv -> String
 pretty = T.unpack . prettyText
 
 prettyText :: PrettyCsv -> T.Text
-prettyText PrettyCsv {pcColumns} =
-  let paddedCols = map padCol pcColumns
+prettyText PrettyCsv {..} =
+  let combined :: [[T.Text]]
+      combined = undefined -- TODO
+      paddedCols = map padCol pcColumns
       rows = L.transpose paddedCols
-      combinedRows = map (L.foldr1 (\a c -> a <> "  " <> c)) rows
-   in T.intercalate "\n" combinedRows
+      concatedRows = map (L.foldr1 (\a c -> a <> "  " <> c)) rows
+   in T.intercalate "\n" concatedRows
   where
     maxColWidth :: [T.Text] -> Int
     maxColWidth = maximum . map T.length
