@@ -1,12 +1,12 @@
 module Csv.Print (module Csv.Print) where
 
+import Csv.Parsing
 import Csv.Types
 import qualified Data.Either as E
 import qualified Data.List as L
 import qualified Data.Maybe as M
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
-import Csv.Parsing
 
 data PrettyCsv = PrettyCsv
   { pcHeader :: Maybe [T.Text],
@@ -37,11 +37,15 @@ pretty = T.unpack . prettyText
 
 prettyText :: PrettyCsv -> T.Text
 prettyText PrettyCsv {pcColumns} =
-  let lengthC1 = colWidth $ head pcColumns
-      col1 = map (padField lengthC1) $ head pcColumns
-   in T.intercalate "\n" col1
+  let paddedCols = map padCol pcColumns
+      rows = L.transpose paddedCols
+      combinedRows = map (L.foldr1 (\a c -> a <> "  " <> c)) rows
+   in T.intercalate "\n" combinedRows
   where
-    colWidth = maximum . map T.length
+    maxColWidth :: [T.Text] -> Int
+    maxColWidth = maximum . map T.length
+    padCol :: [T.Text] -> [T.Text]
+    padCol col = fmap (padField (maxColWidth col)) col
     padField :: Int -> T.Text -> T.Text
     padField max' txt = T.replicate (max' - T.length txt) " " <> txt
 
