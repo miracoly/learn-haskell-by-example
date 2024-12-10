@@ -33,6 +33,7 @@ library
       Csv.Parsing
       Csv.Print
       Csv.Operations
+      Util.Arguments
   autogen-modules:
       Paths_csview
   hs-source-dirs:
