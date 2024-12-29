@@ -26,10 +26,10 @@ source-repository head
 library
   exposed-modules:
       Csv
+      Data.Sliceable
       Util.Arguments
   other-modules:
       Paths_csview
-      Data.Sliceable
       Csv.Types
       Csv.Parsing
       Csv.Print

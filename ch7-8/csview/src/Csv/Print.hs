@@ -15,6 +15,9 @@ data PrettyCsv = PrettyCsv
   }
   deriving (Eq, Show)
 
+printCsv :: Csv -> IO ()
+printCsv = mapM_ TIO.putStrLn . toFileContent
+
 fromCsv :: Csv -> PrettyCsv
 fromCsv Csv {..} =
   PrettyCsv

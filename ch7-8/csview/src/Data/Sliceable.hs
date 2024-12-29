@@ -7,9 +7,9 @@ class Sliceable a where
 
 instance Sliceable [a] where
   slicePartition idx1 idx2 xs =
-    ( take idx1 xs,
-      take (idx2 - idx1) $ drop idx1 xs,
-      drop idx2 xs
+    ( take idx1 xs
+    , take (idx2 - idx1) $ drop idx1 xs
+    , drop idx2 xs
     )
 
 instance (Sliceable a) => Sliceable (Maybe a) where
