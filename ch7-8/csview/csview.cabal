@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Csv
+      Util.Arguments
   other-modules:
       Paths_csview
       Data.Sliceable
@@ -33,7 +34,6 @@ library
       Csv.Parsing
       Csv.Print
       Csv.Operations
-      Util.Arguments
   autogen-modules:
       Paths_csview
   hs-source-dirs:
@@ -62,6 +62,10 @@ executable csview
     , csview
     , text >=2.0.2 && <2.1.0
   default-language: Haskell2010
+  default-extensions:
+      OverloadedStrings
+    , RecordWildCards
+    , NamedFieldPuns
 
 test-suite csview-test
   type: exitcode-stdio-1.0
